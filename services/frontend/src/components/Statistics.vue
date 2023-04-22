@@ -1,8 +1,34 @@
+<script>
+export default {
+  data() {
+    return {
+      allCountries: [],
+      allCountriesSorted: []
+    };
+  },
+  // get all countries for use in select box, sorted with 'World' at top
+  async mounted() {
+  const response = await fetch("http://localhost:5000/api/v1")
+  this.allCountries = await response.json()
+  const regex = /^world$/i
+  this.allCountriesSorted =
+    [this.allCountries.find((item) => regex.test(item))]
+    .concat(
+      this.allCountries.filter(item => !regex.test(item) && item != '').sort()
+    )
+    console.log('fetch all countries')
+    // TO DO: keep in store
+}
+
+}
+</script>
+
 <template>
   <div class="greetings">
     <h1 class="green">Statistics Page</h1>
     <h3>Select country below</h3>
-    <div class="intro">
+    <div class="stats">
+
     </div>
   </div>
 </template>
@@ -22,7 +48,7 @@ h3 {
 .greetings h3 {
   text-align: center;
 }
-.intro {
+.stats {
   padding-top: 1rem;
 }
 

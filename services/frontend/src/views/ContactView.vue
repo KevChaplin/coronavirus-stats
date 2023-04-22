@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup>
 import Contact from '../components/Contact.vue'
 </script>
 

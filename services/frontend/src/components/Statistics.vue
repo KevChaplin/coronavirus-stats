@@ -1,33 +1,8 @@
 <template>
   <div class="greetings">
     <h1 class="green">Statistics Page</h1>
-    <h3>Up-to-date Coronovirus statistics worldwide</h3>
+    <h3>Select country below</h3>
     <div class="intro">
-      <p>
-        Statistics courtesy of
-        <a href="https://covid-19.dataflowkit.com/" target="_blank" rel="noopener"
-          >covid-19.dataflowkit.com</a
-        >
-      </p>
-      <p>
-        Which in turn sources data from
-        <a
-          href="https://www.worldometers.info/coronavirus/#countries"
-          target="_blank"
-          rel="noopener"
-          >www.worldometers</a
-        >
-      </p>
-      <p>
-        Note: As of the 1st of February 2023, Coronovirus statistics are updated daily, reset time
-        midnight GMT+0.
-      </p>
-      <p>
-        For more information on how the Coronovirus data is gathered and more, see
-        <a href="https://www.worldometers.info/faq/" target="_blank" rel="noopener"
-          >www.worldometers.info/faq/</a
-        >
-      </p>
     </div>
   </div>
 </template>

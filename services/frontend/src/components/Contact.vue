@@ -40,6 +40,7 @@ export default {
     <h3>Please get in touch with any requests or feedback</h3>
     <form class="contact-form" action="https://formsubmit.co/1163c830f441496d9db56de781ea6a16" method="POST" @reset.prevent="resetForm">
       <div class="name-email">
+        <input type="hidden" name="_subject" value="Coronovirus Statistics: New message">
         <label>Name</label>
         <input v-model="name" name="name"/>
         <label>Email</label>

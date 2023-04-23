@@ -4,13 +4,13 @@
     <h3>Up-to-date Coronovirus statistics worldwide</h3>
     <div class="intro">
       <p>
-        Statistics courtesy of
+        Statistics courtesy of:
         <a href="https://covid-19.dataflowkit.com/" target="_blank" rel="noopener"
           >covid-19.dataflowkit.com</a
         >
       </p>
       <p>
-        Which in turn sources data from
+        Original data source:
         <a
           href="https://www.worldometers.info/coronavirus/#countries"
           target="_blank"
@@ -23,7 +23,7 @@
         midnight GMT+0.
       </p>
       <p>
-        For more information on how the Coronovirus data is gathered and more, see
+        For more information on how the Coronovirus data is gathered and more, visit
         <a href="https://www.worldometers.info/faq/" target="_blank" rel="noopener"
           >www.worldometers.info/faq/</a
         >

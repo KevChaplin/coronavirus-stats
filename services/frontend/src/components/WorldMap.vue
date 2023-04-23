@@ -1,6 +1,6 @@
 <script>
 import { createTypedChart } from 'vue-chartjs'
-import { Chart, Tooltip } from 'chart.js'
+import { Chart } from 'chart.js'
 import * as countries from 'i18n-iso-countries'
 import countriesEnglish from 'i18n-iso-countries/langs/en.json'
 import { useCountryStore } from '../stores/countryStore.js'
@@ -14,26 +14,27 @@ import {
 } from 'chartjs-chart-geo'
 import { topojson } from 'chartjs-chart-geo'
 
-Chart.register(
-    ChoroplethController,
-    GeoFeature,
-    ColorScale,
-    ProjectionScale,
-    Tooltip
-)
+Chart.register(ChoroplethController, GeoFeature, ColorScale, ProjectionScale)
 
 const chartOptionsDefault = {
     showOutline: true,
     showGraticule: true,
+    hover: {
+        mode: null
+    },
     plugins: {
         legend: {
-            display: false
+            display: true
         }
     },
     scales: {
         projection: {
             axis: 'x',
             projection: 'equalEarth'
+        },
+        color: {
+            display: false,
+            axis: 'x'
         }
     }
 }
@@ -50,6 +51,7 @@ export default {
             geoCountries: {}
         }
     },
+    // get country polygon data on mount
     async mounted() {
         const response = await fetch(
             'https://unpkg.com/world-atlas@2.0.2/countries-110m.json'
@@ -61,10 +63,10 @@ export default {
         ).features
         this.isData = true
     },
+    // dynamically update selected country based on store value (value: 1 or 0); factor in missing countries in polygon data
     computed: {
         selectedCountry() {
             const countryStore = useCountryStore()
-            console.log('store', countryStore.selectedCountry)
             return countryStore.selectedCountry
         },
         chartData() {
@@ -73,10 +75,24 @@ export default {
                 datasets: [
                     {
                         label: 'Countries',
+                        backgroundColor: (context) => {
+                            if (context.dataIndex == null) {
+                                return null
+                            }
+                            const value =
+                                context.dataset.data[context.dataIndex]
+                            return value.value > 0
+                                ? 'rgb(111, 111, 235)'
+                                : 'rgb(255, 255, 235)'
+                        },
                         data: this.geoCountries.map((d) => ({
                             feature: d,
                             value:
                                 !!this.selectedCountry &&
+                                countries.getAlpha3Code(
+                                    d.properties.name,
+                                    'en'
+                                ) &&
                                 countries.getAlpha3Code(
                                     d.properties.name,
                                     'en'

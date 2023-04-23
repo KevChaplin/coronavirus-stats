@@ -6,7 +6,7 @@ export const useCountryStore = defineStore('countryStore', {
     }),
     actions: {
         set(country) {
-            if (!country || country.lowercase() == 'world') {
+            if (!country || country.toLowerCase() == 'world') {
                 this.selectedCountry = ''
             } else {
                 this.selectedCountry = country

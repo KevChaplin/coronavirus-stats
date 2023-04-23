@@ -4,24 +4,24 @@ import StatisticsView from '../views/StatisticsView.vue'
 import ContactView from '../views/ContactView.vue'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'home',
-      component: HomeView
-    },
-    {
-      path: '/statistics',
-      name: 'statistics',
-      component: StatisticsView
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: ContactView
-    }
-  ]
+    history: createWebHistory(import.meta.env.BASE_URL),
+    routes: [
+        {
+            path: '/',
+            name: 'home',
+            component: HomeView
+        },
+        {
+            path: '/statistics',
+            name: 'statistics',
+            component: StatisticsView
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: ContactView
+        }
+    ]
 })
 
 export default router

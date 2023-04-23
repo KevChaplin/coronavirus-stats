@@ -1,32 +1,82 @@
 <script>
+import WorldMap from './WorldMap.vue'
+
+import { topojson } from "chartjs-chart-geo";
+import countriesTopoJson from "../assets/countries-50m.json";
+
+const countries = topojson.feature(
+    countriesTopoJson,
+    countriesTopoJson.objects.countries
+).features
+
+const plotData = {
+    labels: countries.map(d => d.properties.name),
+    datasets: [
+        {
+            label: "Countries",
+            backgroundColor: context => {
+              if (context.dataIndex == null) {
+                  return null;
+              }
+              const value = context.dataset.data[context.dataIndex];
+              return `rgb(0, 0, ${value.value * 255})`;
+            },
+            data: countries.map(d => ({ feature: d, value: Math.random() }))
+        }
+    ]
+}
+const plotOptions = {
+    showOutline: true,
+    showGraticule: false,
+    legend: {
+      display: false
+    },
+    scales: {
+      projection: {
+        axis: 'x',
+        projection: 'equalEarth'
+      }
+    }
+}
+
 export default {
+  name: 'Statistics',
+  components: {
+    WorldMap
+  },
   data() {
     return {
-      allCountries: [],
-      allCountriesSorted: [],
-      selectedCountry: '',
-      isCountryData: false,
-      countryStats: {
-        activeCases: "0",
-        country: '',
-        lastUpdated: '',
-        newCases: "0",
-        newDeaths: "0",
-        totalCases: "0",
-        totalDeaths: "0",
-        TotalRecoverd: "0"
+      stats: {
+        allCountries: [],
+        allCountriesSorted: [],
+        selectedCountry: '',
+        isCountryData: false,
+        countryStats: {
+          activeCases: "0",
+          country: '',
+          lastUpdated: '',
+          newCases: "0",
+          newDeaths: "0",
+          totalCases: "0",
+          totalDeaths: "0",
+          TotalRecoverd: "0"
+        }
+      },
+      plot: {
+        chartData: plotData,
+        chartOptions: plotOptions
       }
     };
   },
   // get all countries for use in select box, sorted with 'World' at top
   async mounted() {
     const response = await fetch("http://localhost:5000/api/v1")
-    this.allCountries = await response.json()
+    this.stats.allCountries = await response.json()
     const regex = /^world$/i
-    this.allCountriesSorted =
-      [this.allCountries.find((item) => regex.test(item))]
+    this.stats.allCountriesSorted =
+      [this.stats.allCountries.find((item) => regex.test(item))]
       .concat(
-        this.allCountries.filter(item => !regex.test(item) && item != '').sort()
+        this.stats.allCountries.filter(item => !regex.test(item) && item != '').sort()
       )
       console.log('fetch all countries')
       // TO DO: keep in store
@@ -34,12 +84,12 @@ export default {
   methods: {
     // on select country, get that countries data
     async handleChange() {
-      if (this.selectedCountry) {
-        const response = await fetch(`http://localhost:5000/api/v1/${this.selectedCountry}`)
+      if (this.stats.selectedCountry) {
+        const response = await fetch(`http://localhost:5000/api/v1/${this.stats.selectedCountry}`)
         const data = await response.json()
         // TO DO: store data
-        if(data) { this.isCountryData = true }
-        this.countryStats = {
+        if(data) { this.stats.isCountryData = true }
+        this.stats.countryStats = {
           activeCases: data["Active Cases_text"] || "0",
           country: data["Country_text"] || "",
           lastUpdated: data["Last Update"] || "",
@@ -48,7 +98,7 @@ export default {
           totalCases: data["Total Cases_text"] || "",
           totalDeaths: data["Total Deaths_text"] || "",
           totalRecovered: data["Total Recovered_text"] || ""
-        };
+        }
       }
     }
   }
@@ -60,44 +110,46 @@ export default {
     <h1 class="green">Statistics Page</h1>
     <h3>Coronavirus statistics by individual country, or the whole world</h3>
     <div class="stats">
-      <select class="green" @change="handleChange" v-model="selectedCountry">
-      <option disabled value="">Select country</option>
-      <option v-for="country in allCountriesSorted" :value="country">{{ country }}</option>
-    </select>
-    <table v-if="this.isCountryData">
-      <tbody>
-        <tr>
-          <td>Active Cases</td>
-          <td>{{ countryStats.activeCases }}</td>
-        </tr>
-        <tr>
-          <td>Last Update</td>
-          <td>{{ countryStats.lastUpdated }}</td>
-        </tr>
-        <tr>
-          <td>New Cases</td>
-          <td>{{ countryStats.newCases }}</td>
-        </tr>
-        <tr>
-          <td>New Deaths</td>
-          <td>{{ countryStats.newDeaths }}</td>
-        </tr>
-        <tr>
-          <td>Total Cases</td>
-          <td>{{ countryStats.totalCases }}</td>
-        </tr>
-        <tr>
-          <td>Total Deaths</td>
-          <td>{{ countryStats.totalDeaths }}</td>
-        </tr>
-        <tr>
-          <td>Total Recovered</td>
-          <td>{{ countryStats.totalRecovered }}</td>
-        </tr>
-      </tbody>
-    </table>
+      <select class="green" @change="handleChange" v-model="stats.selectedCountry">
+        <option disabled value="">Select country</option>
+        <option v-for="country in stats.allCountriesSorted" :value="country">{{ country }}</option>
+      </select>
+      <table v-if="this.stats.isCountryData">
+        <tbody>
+          <tr>
+            <td>Active Cases</td>
+            <td>{{ stats.countryStats.activeCases }}</td>
+          </tr>
+          <tr>
+            <td>Last Update</td>
+            <td>{{ stats.countryStats.lastUpdated }}</td>
+          </tr>
+          <tr>
+            <td>New Cases</td>
+            <td>{{ stats.countryStats.newCases }}</td>
+          </tr>
+          <tr>
+            <td>New Deaths</td>
+            <td>{{ stats.countryStats.newDeaths }}</td>
+          </tr>
+          <tr>
+            <td>Total Cases</td>
+            <td>{{ stats.countryStats.totalCases }}</td>
+          </tr>
+          <tr>
+            <td>Total Deaths</td>
+            <td>{{ stats.countryStats.totalDeaths }}</td>
+          </tr>
+          <tr>
+            <td>Total Recovered</td>
+            <td>{{ stats.countryStats.totalRecovered }}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
+
+<WorldMap :chartData="plot.chartData" :chartOptions="plot.chartOptions"/>
 </template>
 
 <style scoped>

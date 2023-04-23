@@ -64,7 +64,7 @@ export default {
     computed: {
         selectedCountry() {
             const countryStore = useCountryStore()
-            console.log('store',countryStore.selectedCountry)
+            console.log('store', countryStore.selectedCountry)
             return countryStore.selectedCountry
         },
         chartData() {
@@ -77,7 +77,10 @@ export default {
                             feature: d,
                             value:
                                 !!this.selectedCountry &&
-                                countries.getAlpha3Code(d.properties.name, 'en') ===
+                                countries.getAlpha3Code(
+                                    d.properties.name,
+                                    'en'
+                                ) ===
                                     countries.getAlpha3Code(
                                         this.selectedCountry,
                                         'en'

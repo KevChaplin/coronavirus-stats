@@ -5,7 +5,10 @@
     <div class="intro">
       <p>
         Statistics courtesy of:
-        <a href="https://covid-19.dataflowkit.com/" target="_blank" rel="noopener"
+        <a
+          href="https://covid-19.dataflowkit.com/"
+          target="_blank"
+          rel="noopener"
           >covid-19.dataflowkit.com</a
         >
       </p>
@@ -19,12 +22,16 @@
         >
       </p>
       <p>
-        Note: As of the 1st of February 2023, Coronovirus statistics are updated daily, reset time
-        midnight GMT+0.
+        Note: As of the 1st of February 2023, Coronovirus statistics are updated
+        daily, reset time midnight GMT+0.
       </p>
       <p>
-        For more information on how the Coronovirus data is gathered and more, visit
-        <a href="https://www.worldometers.info/faq/" target="_blank" rel="noopener"
+        For more information on how the Coronovirus data is gathered and more,
+        visit
+        <a
+          href="https://www.worldometers.info/faq/"
+          target="_blank"
+          rel="noopener"
           >www.worldometers.info/faq/</a
         >
       </p>

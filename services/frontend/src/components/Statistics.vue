@@ -1,48 +1,46 @@
 <script>
-import WorldMap from './WorldMap.vue'
+// import WorldMap from './WorldMap.vue'
+import MapChart from './WorldMapTestCopy.vue'
 
-import { topojson } from "chartjs-chart-geo";
-import countriesTopoJson from "../assets/countries-50m.json";
+// import { topojson } from "chartjs-chart-geo";
+// import countriesTopoJson from "../assets/countries-50m.json";
 
-const countries = topojson.feature(
-    countriesTopoJson,
-    countriesTopoJson.objects.countries
-).features
+// const countries = topojson.feature(
+//     countriesTopoJson,
+//     countriesTopoJson.objects.countries
+// ).features
 
-const plotData = {
-    labels: countries.map(d => d.properties.name),
-    datasets: [
-        {
-            label: "Countries",
-            backgroundColor: context => {
-              if (context.dataIndex == null) {
-                  return null;
-              }
-              const value = context.dataset.data[context.dataIndex];
-              return `rgb(0, 0, ${value.value * 255})`;
-            },
-            data: countries.map(d => ({ feature: d, value: Math.random() }))
-        }
-    ]
-}
-const plotOptions = {
-    showOutline: true,
-    showGraticule: false,
-    legend: {
-      display: false
-    },
-    scales: {
-      projection: {
-        axis: 'x',
-        projection: 'equalEarth'
-      }
-    }
-}
+// const plotData = {
+//   labels: countries.map((d) => d.properties.name),
+//               datasets: [
+//                 {
+//                   label: 'Countries',
+//                   data: countries.map((d) => ({
+//                     feature: d,
+//                     value: Math.random(),
+//                   })),
+//                 },
+//               ],
+// }
+// const plotOptions = {
+//     showOutline: true,
+//     showGraticule: false,
+//     legend: {
+//       display: false
+//     },
+//     scales: {
+//       projection: {
+//         axis: 'x',
+//         projection: 'equalEarth'
+//       }
+//     }
+// }
 
 export default {
   name: 'Statistics',
   components: {
-    WorldMap
+    // WorldMap
+    MapChart
   },
   data() {
     return {
@@ -52,52 +50,57 @@ export default {
         selectedCountry: '',
         isCountryData: false,
         countryStats: {
-          activeCases: "0",
+          activeCases: '0',
           country: '',
           lastUpdated: '',
-          newCases: "0",
-          newDeaths: "0",
-          totalCases: "0",
-          totalDeaths: "0",
-          TotalRecoverd: "0"
+          newCases: '0',
+          newDeaths: '0',
+          totalCases: '0',
+          totalDeaths: '0',
+          TotalRecoverd: '0'
         }
-      },
-      plot: {
-        chartData: plotData,
-        chartOptions: plotOptions
       }
-    };
+      // plot: {
+      //   chartData: plotData,
+      //   chartOptions: plotOptions
+      // }
+    }
   },
   // get all countries for use in select box, sorted with 'World' at top
   async mounted() {
-    const response = await fetch("http://localhost:5000/api/v1")
+    const response = await fetch('http://localhost:5000/api/v1')
     this.stats.allCountries = await response.json()
     const regex = /^world$/i
-    this.stats.allCountriesSorted =
-      [this.stats.allCountries.find((item) => regex.test(item))]
-      .concat(
-        this.stats.allCountries.filter(item => !regex.test(item) && item != '').sort()
-      )
-      console.log('fetch all countries')
-      // TO DO: keep in store
+    this.stats.allCountriesSorted = [
+      this.stats.allCountries.find((item) => regex.test(item))
+    ].concat(
+      this.stats.allCountries
+        .filter((item) => !regex.test(item) && item != '')
+        .sort()
+    )
+    // TO DO: keep in store
   },
   methods: {
     // on select country, get that countries data
     async handleChange() {
       if (this.stats.selectedCountry) {
-        const response = await fetch(`http://localhost:5000/api/v1/${this.stats.selectedCountry}`)
+        const response = await fetch(
+          `http://localhost:5000/api/v1/${this.stats.selectedCountry}`
+        )
         const data = await response.json()
         // TO DO: store data
-        if(data) { this.stats.isCountryData = true }
+        if (data) {
+          this.stats.isCountryData = true
+        }
         this.stats.countryStats = {
-          activeCases: data["Active Cases_text"] || "0",
-          country: data["Country_text"] || "",
-          lastUpdated: data["Last Update"] || "",
-          newCases: data["New Cases_text"] || "0",
-          newDeaths: data["New Deaths_text"] || "0",
-          totalCases: data["Total Cases_text"] || "",
-          totalDeaths: data["Total Deaths_text"] || "",
-          totalRecovered: data["Total Recovered_text"] || ""
+          activeCases: data['Active Cases_text'] || '0',
+          country: data['Country_text'] || '',
+          lastUpdated: data['Last Update'] || '',
+          newCases: data['New Cases_text'] || '0',
+          newDeaths: data['New Deaths_text'] || '0',
+          totalCases: data['Total Cases_text'] || '',
+          totalDeaths: data['Total Deaths_text'] || '',
+          totalRecovered: data['Total Recovered_text'] || ''
         }
       }
     }
@@ -110,9 +113,15 @@ export default {
     <h1 class="green">Statistics Page</h1>
     <h3>Coronavirus statistics by individual country, or the whole world</h3>
     <div class="stats">
-      <select class="green" @change="handleChange" v-model="stats.selectedCountry">
+      <select
+        class="green"
+        @change="handleChange"
+        v-model="stats.selectedCountry"
+      >
         <option disabled value="">Select country</option>
-        <option v-for="country in stats.allCountriesSorted" :value="country">{{ country }}</option>
+        <option v-for="country in stats.allCountriesSorted" :value="country">
+          {{ country }}
+        </option>
       </select>
       <table v-if="this.stats.isCountryData">
         <tbody>
@@ -149,7 +158,8 @@ export default {
     </div>
   </div>
 
-<WorldMap :chartData="plot.chartData" :chartOptions="plot.chartOptions"/>
+  <!-- <WorldMap :chartData="plot.chartData" :chartOptions="plot.chartOptions"/> -->
+  <MapChart />
 </template>
 
 <style scoped>

@@ -1,5 +1,4 @@
 <script>
-
 export default {
   data() {
     return {
@@ -18,35 +17,46 @@ export default {
       }
     },
     resetForm() {
-      this.name = '' 
+      this.name = ''
       this.email = ''
       this.message = ''
     }
-
   },
   computed: {
     formIsValid() {
       const { name, email, message } = this
-      return name.length > 0 && /(.+)@(.+){2,}.(.+){2,}/.test(email) && message.length > 0
+      return (
+        name.length > 0 &&
+        /(.+)@(.+){2,}.(.+){2,}/.test(email) &&
+        message.length > 0
+      )
     }
   }
 }
-
 </script>
 
-<template >
+<template>
   <div class="contact-page">
     <h1 class="green">Contact</h1>
     <h3>Please get in touch with any requests or feedback</h3>
-    <form class="contact-form" action="https://formsubmit.co/1163c830f441496d9db56de781ea6a16" method="POST" @reset.prevent="resetForm">
+    <form
+      class="contact-form"
+      action="https://formsubmit.co/1163c830f441496d9db56de781ea6a16"
+      method="POST"
+      @reset.prevent="resetForm"
+    >
       <div class="name-email">
-        <input type="hidden" name="_subject" value="Coronovirus Statistics: New message">
+        <input
+          type="hidden"
+          name="_subject"
+          value="Coronovirus Statistics: New message"
+        />
         <label>Name</label>
-        <input v-model="name" name="name"/>
+        <input v-model="name" name="name" />
         <label>Email</label>
-        <input v-model="email" name="email"/>
+        <input v-model="email" name="email" />
       </div>
-  
+
       <div>
         <label>Message</label>
         <textarea v-model="message" name="message"></textarea>

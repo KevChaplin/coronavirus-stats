@@ -1,6 +1,9 @@
 <script>
 import MapChart from './WorldMap.vue'
-import { useCountryStore } from '../stores/countryStore.js'
+import {
+    useCountryStore,
+    useAllCountriesStore
+} from '../stores/countryStore.js'
 
 export default {
     name: 'Statistics',
@@ -29,17 +32,23 @@ export default {
     },
     // get all countries for use in select box, sorted with 'World' at top
     async mounted() {
-        const response = await fetch('http://localhost:5000/api/v1')
-        this.stats.allCountries = await response.json()
-        const regex = /^world$/i
-        this.stats.allCountriesSorted = [
-            this.stats.allCountries.find((item) => regex.test(item))
-        ].concat(
-            this.stats.allCountries
-                .filter((item) => !regex.test(item) && item != '')
-                .sort()
-        )
-        // TO DO: keep in store
+        // check if list of all countries in store
+        const allCountriesStore = useAllCountriesStore()
+        if (allCountriesStore.allCountries.length > 0) {
+            this.stats.allCountriesSorted = allCountriesStore.allCountries
+        } else {
+            const response = await fetch('http://localhost:5000/api/v1')
+            this.stats.allCountries = await response.json()
+            const regex = /^world$/i
+            this.stats.allCountriesSorted = [
+                this.stats.allCountries.find((item) => regex.test(item))
+            ].concat(
+                this.stats.allCountries
+                    .filter((item) => !regex.test(item) && item != '')
+                    .sort()
+            )
+            allCountriesStore.set(this.stats.allCountriesSorted)
+        }
     },
     methods: {
         // on select country, get that countries data

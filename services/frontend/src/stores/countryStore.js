@@ -14,3 +14,16 @@ export const useCountryStore = defineStore('countryStore', {
         }
     }
 })
+
+export const useAllCountriesStore = defineStore('allCountrieStore', {
+    state: () => ({
+        allCountries: []
+    }),
+    actions: {
+        set(countriesArr) {
+            if (countriesArr.length > 0) {
+                this.allCountries = countriesArr
+            }
+        }
+    }
+})

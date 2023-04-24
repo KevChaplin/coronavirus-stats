@@ -158,8 +158,6 @@ button[type='reset']:hover {
 }
 
 @media (min-width: 1024px) {
-    .contact-form {
-    }
     .name-email {
         flex-direction: row;
     }

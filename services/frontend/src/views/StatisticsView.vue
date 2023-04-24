@@ -1,9 +1,9 @@
-<script setup lang="ts">
+<script setup>
 import Statistics from '../components/Statistics.vue'
 </script>
 
 <template>
-  <main>
-    <Statistics />
-  </main>
+    <main>
+        <Statistics />
+    </main>
 </template>

@@ -10,8 +10,12 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
+    "chart.js": "^4.2.1",
+    "chartjs-chart-geo": "^4.1.2",
+    "i18n-iso-countries": "^7.6.0",
     "pinia": "^2.0.32",
     "vue": "^3.2.47",
+    "vue-chartjs": "^5.2.0",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {

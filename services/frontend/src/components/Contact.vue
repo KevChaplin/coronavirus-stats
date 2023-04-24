@@ -45,12 +45,13 @@ export default {
             method="POST"
             @reset.prevent="resetForm"
         >
+            <input
+                type="hidden"
+                name="_subject"
+                value="Coronovirus Statistics: New message"
+            />
+            <input type="hidden" name="_cc" value="info@corpy.co.jp" />
             <div class="name-email">
-                <input
-                    type="hidden"
-                    name="_subject"
-                    value="Coronovirus Statistics: New message"
-                />
                 <div class="top-row-item">
                     <label>Name</label>
                     <input v-model="name" name="name" />
@@ -158,8 +159,6 @@ button[type='reset']:hover {
 }
 
 @media (min-width: 1024px) {
-    .contact-form {
-    }
     .name-email {
         flex-direction: row;
     }

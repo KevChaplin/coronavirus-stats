@@ -16,6 +16,7 @@ import { topojson } from 'chartjs-chart-geo'
 
 Chart.register(ChoroplethController, GeoFeature, ColorScale, ProjectionScale)
 
+// Options for choropleth chart
 const chartOptionsDefault = {
     showOutline: true,
     showGraticule: true,

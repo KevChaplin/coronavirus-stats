@@ -56,6 +56,8 @@ h3 {
 }
 .intro {
     padding-top: 1rem;
+    max-width: 400px;
+    margin: auto;
 }
 
 /* @media (min-width: 1024px) {

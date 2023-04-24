@@ -6,9 +6,9 @@ Proof of concept application for monitoring global statistics regarding COVID-19
 
 ## App Struture
 
-SPA
-Front-end: Vue.js
-Back-end: FastAPI
+SPA  
+Front-end: Vue.js  
+Back-end: FastAPI  
 "Database": External API call
 
 ## Instructions
@@ -38,6 +38,6 @@ npm install
 npm run build
 ```
 
-visit http://localhost:5173/
+## visit http://localhost:5173/
 
 <!-- docker-compose up -d --build -->

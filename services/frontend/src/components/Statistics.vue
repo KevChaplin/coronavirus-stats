@@ -51,7 +51,7 @@ export default {
             }
         } else {
             // fetch list of countries
-            const response = await fetch('http://localhost:5000/api/v1')
+            const response = await fetch('http://localhost:8000/api/v1')
             this.stats.allCountries = await response.json()
             const regex = /^world$/i
             this.stats.allCountriesSorted = [
@@ -69,7 +69,7 @@ export default {
         async handleChange() {
             if (this.stats.selectedCountry) {
                 const response = await fetch(
-                    `http://localhost:5000/api/v1/${this.stats.selectedCountry}`
+                    `http://localhost:8000/api/v1/${this.stats.selectedCountry}`
                 )
                 const data = await response.json()
                 if (data) {

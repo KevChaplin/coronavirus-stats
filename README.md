@@ -27,7 +27,7 @@ Start backend
 ```sh
 cd services/backend
 pip install -r requirements.txt
-uvicorn main:app --reload
+uvicorn src.main:app --reload
 ```
 
 Start frontend
@@ -35,7 +35,7 @@ Start frontend
 ```sh
 cd services/frontend
 npm install
-npm run build
+npm run dev
 ```
 
 ## visit http://localhost:5173/

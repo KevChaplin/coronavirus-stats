@@ -97,10 +97,7 @@ export default {
                 <div class="svg">
                     <MapChart />
                 </div>
-                <table
-                    class="data-table green"
-                    v-show="this.stats.isCountryData"
-                >
+                <table class="data-table green" v-if="this.stats.isCountryData">
                     <tbody>
                         <tr>
                             <td>Active Cases</td>
@@ -192,8 +189,8 @@ td {
 }
 .svg {
     width: 90%;
+    padding: 0 10px;
     aspect-ratio: 2 / 1;
-    transition: width 2s, height 4s;
 }
 
 @media (min-width: 1024px) {

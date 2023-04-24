@@ -2,7 +2,8 @@
 import MapChart from './WorldMap.vue'
 import {
     useCountryStore,
-    useAllCountriesStore
+    useAllCountriesStore,
+    useSelectedCountryDataStore
 } from '../stores/countryStore.js'
 
 export default {
@@ -34,9 +35,22 @@ export default {
     async mounted() {
         // check if list of all countries in store
         const allCountriesStore = useAllCountriesStore()
+        const countryStore = useCountryStore()
+        const selectedCountryDataStore = useSelectedCountryDataStore()
         if (allCountriesStore.allCountries.length > 0) {
             this.stats.allCountriesSorted = allCountriesStore.allCountries
+            // check if country selected and data in store, and set if present
+            if (
+                countryStore.selectedCountry &&
+                selectedCountryDataStore.selectedCountryData
+            ) {
+                this.stats.selectedCountry = countryStore.selectedCountry
+                this.stats.countryStats =
+                    selectedCountryDataStore.selectedCountryData
+                this.stats.isCountryData = true
+            }
         } else {
+            // fetch list of countries
             const response = await fetch('http://localhost:5000/api/v1')
             this.stats.allCountries = await response.json()
             const regex = /^world$/i
@@ -58,7 +72,6 @@ export default {
                     `http://localhost:5000/api/v1/${this.stats.selectedCountry}`
                 )
                 const data = await response.json()
-                // TO DO: store data
                 if (data) {
                     this.stats.isCountryData = true
                 }
@@ -72,9 +85,11 @@ export default {
                     totalDeaths: data['Total Deaths_text'] || '',
                     totalRecovered: data['Total Recovered_text'] || ''
                 }
-                // update the store value
+                // update the store values
                 const countryStore = useCountryStore()
+                const selectedCountryDataStore = useSelectedCountryDataStore()
                 countryStore.set(this.stats.selectedCountry)
+                selectedCountryDataStore.set(this.stats.countryStats)
             }
         }
     }

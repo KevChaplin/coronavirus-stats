@@ -49,8 +49,6 @@ h1 {
 h3 {
     font-size: 1.2rem;
 }
-.greetings {
-}
 
 .greetings h1,
 .greetings h3 {

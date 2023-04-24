@@ -49,6 +49,8 @@ h1 {
 h3 {
     font-size: 1.2rem;
 }
+.greetings {
+}
 
 .greetings h1,
 .greetings h3 {
@@ -56,6 +58,8 @@ h3 {
 }
 .intro {
     padding-top: 1rem;
+    max-width: 400px;
+    margin: auto;
 }
 
 /* @media (min-width: 1024px) {

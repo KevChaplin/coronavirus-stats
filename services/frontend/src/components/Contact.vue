@@ -51,10 +51,14 @@ export default {
                     name="_subject"
                     value="Coronovirus Statistics: New message"
                 />
-                <label>Name</label>
-                <input v-model="name" name="name" />
-                <label>Email</label>
-                <input v-model="email" name="email" />
+                <div class="top-row-item">
+                    <label>Name</label>
+                    <input v-model="name" name="name" />
+                </div>
+                <div class="top-row-item">
+                    <label>Email</label>
+                    <input v-model="email" name="email" />
+                </div>
             </div>
 
             <div>
@@ -80,13 +84,55 @@ h3 {
     font-size: 1.2rem;
 }
 
+label {
+    padding: 1rem 1rem;
+    font-size: 1.25rem;
+}
+
+input {
+    width: 90%;
+    line-height: 2rem;
+}
+
 textarea {
-    width: 100%;
+    margin-top: 1rem;
+    padding: 1rem 1rem;
+    width: 95%;
+}
+
+button[type='submit'],
+button[type='reset'] {
+    background-color: #4caf50;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    border: none;
+    border-radius: 0.25rem;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button[type='submit']:hover,
+button[type='reset']:hover {
+    background-color: #ffffff;
+    color: #4caf50;
+    box-shadow: 0px 0px 5px rgba(76, 175, 80, 0.5);
+}
+
+button[type='reset'] {
+    background-color: #e53935;
+}
+
+button[type='reset']:hover {
+    background-color: #ffffff;
+    color: #e53935;
+    box-shadow: 0px 0px 5px rgba(229, 57, 53, 0.5);
 }
 
 .contact-page {
     margin: 0 auto;
-    width: 500px;
+    max-width: 700px;
 }
 .contact-page h1,
 .contact-page h3 {
@@ -95,16 +141,30 @@ textarea {
 .contact-form {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
     padding-top: 1rem;
+    width: 100%;
 }
 .name-email {
-    flex-direction: row;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    width: 100%;
+    justify-content: space-between;
+}
+.top-row-item {
+    width: 100%;
 }
 
-/* @media (min-width: 1024px) {
-  .contact-page h1,
-  .contact-page h3 {
-    text-align: left;
-  }
-} */
+@media (min-width: 1024px) {
+    .contact-form {
+    }
+    .name-email {
+        flex-direction: row;
+    }
+    .top-row-item {
+        width: 45%;
+    }
+}
 </style>

@@ -73,12 +73,13 @@ export default {
 </script>
 
 <template>
-    <div class="greetings">
+    <div class="stats-page">
         <h1 class="green">Statistics Page</h1>
         <h3>
             Coronavirus statistics by individual country, or the whole world
         </h3>
-        <div class="stats">
+
+        <div class="container">
             <select
                 class="green"
                 @change="handleChange"
@@ -92,41 +93,48 @@ export default {
                     {{ country }}
                 </option>
             </select>
-            <table v-if="this.stats.isCountryData">
-                <tbody>
-                    <tr>
-                        <td>Active Cases</td>
-                        <td>{{ stats.countryStats.activeCases }}</td>
-                    </tr>
-                    <tr>
-                        <td>Last Update</td>
-                        <td>{{ stats.countryStats.lastUpdated }}</td>
-                    </tr>
-                    <tr>
-                        <td>New Cases</td>
-                        <td>{{ stats.countryStats.newCases }}</td>
-                    </tr>
-                    <tr>
-                        <td>New Deaths</td>
-                        <td>{{ stats.countryStats.newDeaths }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Cases</td>
-                        <td>{{ stats.countryStats.totalCases }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Deaths</td>
-                        <td>{{ stats.countryStats.totalDeaths }}</td>
-                    </tr>
-                    <tr>
-                        <td>Total Recovered</td>
-                        <td>{{ stats.countryStats.totalRecovered }}</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="map-stats">
+                <div class="svg">
+                    <MapChart />
+                </div>
+                <table
+                    class="data-table green"
+                    v-show="this.stats.isCountryData"
+                >
+                    <tbody>
+                        <tr>
+                            <td>Active Cases</td>
+                            <td>{{ stats.countryStats.activeCases }}</td>
+                        </tr>
+                        <tr>
+                            <td>Last Update</td>
+                            <td>{{ stats.countryStats.lastUpdated }}</td>
+                        </tr>
+                        <tr>
+                            <td>New Cases</td>
+                            <td>{{ stats.countryStats.newCases }}</td>
+                        </tr>
+                        <tr>
+                            <td>New Deaths</td>
+                            <td>{{ stats.countryStats.newDeaths }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Cases</td>
+                            <td>{{ stats.countryStats.totalCases }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Deaths</td>
+                            <td>{{ stats.countryStats.totalDeaths }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Recovered</td>
+                            <td>{{ stats.countryStats.totalRecovered }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-    <MapChart />
 </template>
 
 <style scoped>
@@ -142,6 +150,7 @@ h3 {
 
 select {
     text-align: center;
+    min-width: 200px;
     width: 200px;
     background: var(--color-background-soft);
 }
@@ -150,15 +159,21 @@ option {
     background: var(--color-background-soft);
 }
 
+table {
+    min-width: 320px;
+    width: 350px;
+    padding: 10px 20px;
+}
+
 td {
     padding-left: 1rem;
 }
 
-.greetings h1,
-.greetings h3 {
+.stats-page h1,
+.stats-page h3 {
     text-align: center;
 }
-.stats {
+.container {
     padding-top: 1rem;
     display: flex;
     flex-direction: column;
@@ -166,10 +181,24 @@ td {
     justify-content: space-between;
 }
 
-/* @media (min-width: 1024px) {
-  .greetings h1,
-  .greetings h3 {
-    text-align: left;
-  }
-} */
+.map-stats {
+    padding-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: no-wrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.svg {
+    width: 90%;
+    aspect-ratio: 2 / 1;
+    transition: width 2s, height 4s;
+}
+
+@media (min-width: 1024px) {
+    .map-stats {
+        flex-direction: row;
+    }
+}
 </style>

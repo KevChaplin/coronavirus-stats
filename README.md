@@ -16,7 +16,6 @@ Back-end: FastAPI
 run the script `start.sh`
 
 ```sh
-chmod +x start.sh
 ./start.sh
 ```
 

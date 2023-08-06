@@ -1,0 +1,10 @@
+# IDE and editor files
+.vscode/
+
+# Local development settings (example: .env)
+.env
+
+# Logs and temporary files
+logs/
+*.log
+*.swp

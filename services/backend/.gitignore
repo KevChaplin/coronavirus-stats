@@ -1,0 +1,12 @@
+# Byte-compiled / optimized / DLL files
+/src/__pycache__/
+*.py[cod]
+*$py.class
+
+# Local development settings (example: .env)
+.env
+
+# Logs and temporary files
+logs/
+*.log
+*.swp

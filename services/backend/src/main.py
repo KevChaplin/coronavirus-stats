@@ -8,11 +8,12 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 class CountryStats(BaseModel):
     Active_Cases_text: str = ''
@@ -25,6 +26,8 @@ class CountryStats(BaseModel):
     Total_Recovered_text: str = ''
 
 # get individual country statistics
+
+
 @app.get("/api/v1/{country}")
 def get_stats(country: str):
     url = f"https://covid-19.dataflowkit.com/v1/{country}"
@@ -32,6 +35,8 @@ def get_stats(country: str):
     return response.json()
 
 # get list of countries
+
+
 @app.get("/api/v1")
 def get_stats():
     url = f"https://covid-19.dataflowkit.com/v1"

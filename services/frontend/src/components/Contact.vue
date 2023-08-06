@@ -50,7 +50,6 @@ export default {
                 name="_subject"
                 value="Coronovirus Statistics: New message"
             />
-            <input type="hidden" name="_cc" value="info@corpy.co.jp" />
             <div class="name-email">
                 <div class="top-row-item">
                     <label>Name</label>

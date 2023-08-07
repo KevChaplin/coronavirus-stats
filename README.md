@@ -13,10 +13,11 @@ Back-end: FastAPI
 
 ## Instructions
 
-run the script `start.sh`
+run the script `start.sh` to run locally
+use argument 'docker' to start in docker
 
 ```sh
-./start.sh
+./start.sh docker
 ```
 
 ### Alternatively
